@@ -31,7 +31,6 @@ export const ImputPlus: React.FC<TImputPlusProps> = ({
 				onKeyDown={(e) => {
 					if (e.key === "Enter") {
 						add(inputValue)
-						console.log(e.key)
 					}
 				}}
 			></input>

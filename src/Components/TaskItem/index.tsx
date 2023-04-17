@@ -38,7 +38,8 @@ export const TaskItem: React.FC<TaskItemProps> = ({
 					checked={checked}
 					disabled={onEdit}
 					onChange={(e) => {
-						if (confirm("Are you sure?")) {
+						if (confirm("Are you sure?"))
+						 {
 							setChecked(e.target.checked)
 							//isDone(id);    ///if need to remove
 						}
@@ -60,7 +61,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({
 								}
 							}} />
 					) : (
-						<p className={styles.taskItemText}>{editTitle}</p>
+						<p className={checked? styles.taskItemTextIsDone: styles.taskItemText}>{editTitle}</p>
 					)}
 			</label>
 			{
@@ -75,6 +76,9 @@ export const TaskItem: React.FC<TaskItemProps> = ({
 					<button className={styles.taskItemEdit}
 						aria-label="Edit"
 						onClick={() => {
+							if(checked){
+								return;
+							}
 							setOnEdit(true)
 						}}>
 					</button>

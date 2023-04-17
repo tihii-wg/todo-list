@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist ,createJSONStorage} from "zustand/middleware"
 import { generateId } from "../helpers/helpers"
 
 export interface Task {
@@ -15,18 +16,7 @@ export interface ToDoStore {
 }
 
 export const useToDoStore = create<ToDoStore>((set, get) => ({
-	tasks: [
-		//{
-		//	id: "1234",
-		//	title: " первая ",
-		//	createdAt: 123455
-		//},
-		//{
-		//	id: "1264",
-		//	title: " первая ",
-		//	createdAt: 12345
-		//},
-	],
+	tasks: [],
 	addTask: (title: string) => {
 		const { tasks } = get();
 		const newTask = {
@@ -35,14 +25,14 @@ export const useToDoStore = create<ToDoStore>((set, get) => ({
 			createdAt: Date.now()
 		}
 		{
-			title !== "" ? set({ tasks: [newTask].concat(tasks) }) : confirm("Enter task...")
+			title !== "" ? set({ tasks: [newTask].concat(tasks)}) : confirm("Enter task...")
 		}
 	},
 
 	removeTask: (id) => {
 		const { tasks } = get();
 		set({
-			tasks: tasks.filter(t => t.id !== id)
+			tasks:tasks.filter(t => t.id !== id)
 		})
 	},
 
@@ -55,4 +45,7 @@ export const useToDoStore = create<ToDoStore>((set, get) => ({
 	}
 
 })
+
 )
+
+
