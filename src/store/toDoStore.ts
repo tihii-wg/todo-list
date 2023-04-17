@@ -1,18 +1,17 @@
 import { create } from "zustand";
-import { persist ,createJSONStorage} from "zustand/middleware"
 import { generateId } from "../helpers/helpers"
 
 export interface Task {
-	id: string;
-	title: string;
-	createdAt: number;
+	id: string,
+	title: string,
+	createdAt: number,
 }
 
 export interface ToDoStore {
-	tasks: Task[];
-	addTask: (title: string) => void;
-	removeTask: (id: string) => void;
-	updateTask: (id: string, title: string) => void;
+	tasks: Task[],
+	addTask: (title: string) => void,
+	removeTask: (id: string) => void,
+	updateTask: (id: string, title: string) => void,
 }
 
 export const useToDoStore = create<ToDoStore>((set, get) => ({
@@ -25,22 +24,25 @@ export const useToDoStore = create<ToDoStore>((set, get) => ({
 			createdAt: Date.now()
 		}
 		{
-			title !== "" ? set({ tasks: [newTask].concat(tasks)}) : confirm("Enter task...")
+			title.trim() !== "" ? set({ tasks:[newTask].concat(tasks)}) : confirm("Enter task...")
 		}
 	},
 
-	removeTask: (id) => {
+	removeTask: (id:string) => {
 		const { tasks } = get();
 		set({
-			tasks:tasks.filter(t => t.id !== id)
+			tasks: tasks.filter(t => t.id !== id)
 		})
 	},
 
-	updateTask: (id, title) => {
+	updateTask: (id: string, title: string) => {
 		const { tasks } = get();
 		set({
-			tasks: tasks.map((t) => ({ ...t, title: t.id === id ? title : t.title }))
-		});
+			tasks:tasks.map((t)=>({
+				...t,
+				title:t.id === id? title : t.title
+			}))
+	});
 
 	}
 
